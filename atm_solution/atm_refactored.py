@@ -5,9 +5,10 @@ class ATM():
     def __init__(self,balance,bank_name):
         self.balance = balance
         self.bank_name = bank_name
+        self.withdrawals_list = []
+
+
     def withdraw(self,request):
-
-
         initial_req = request # in order to keep track the initial request/ this is usefull when we will update the balance
         
         print("Welcome to " + self.bank_name)
@@ -21,6 +22,7 @@ class ATM():
                 while request > 0:
                     # verify which paper you gave him
                     if request - self.allowed_papers[paper] >= 0:
+                        self.withdrawals_list.append(request) # append the request to the list
                         request -= self.allowed_papers[paper]
                         print("Give " + str(self.allowed_papers[paper]))
                      
@@ -31,3 +33,7 @@ class ATM():
 
         # update balance to the new balance 
         self.balance = self.balance - initial_req
+
+    def show_withdrawals(self):
+        for withdrawal in self.withdrawals_list:
+            print(withdrawal)
